@@ -1,0 +1,28 @@
+syntax = "proto3";
+package account.profile.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "account/proto/gen/profile/v1;profilev1";
+
+service AccountService {
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse);
+}
+
+message GetProfileRequest {
+  string user_id = 1;
+}
+
+message GetProfileResponse {
+  string id = 1;
+  string user_id = 2;
+  string name = 3;
+  string phone = 4;
+  string country = 5;
+  string city = 6;
+  string description = 7;
+  bool phone_verified = 8;
+  bool email_verified = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+}
