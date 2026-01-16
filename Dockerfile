@@ -26,6 +26,10 @@ COPY . .
 FROM builder AS builder-grpc
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o /auction-grpc ./cmd/grpc/main.go
 
+# Build the Worker service binary
+FROM builder AS builder-worker
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o /auction-worker ./cmd/worker/main.go
+
 # gRPC Service Runner
 FROM gcr.io/distroless/base-debian12:nonroot AS grpc
 
@@ -36,3 +40,14 @@ COPY --from=builder-grpc /auction-grpc /usr/local/bin/auction-grpc
 EXPOSE 9090
 
 ENTRYPOINT ["/usr/local/bin/auction-grpc"]
+
+# Worker Service Runner
+FROM gcr.io/distroless/base-debian12:nonroot AS worker
+
+WORKDIR /app
+
+COPY --from=builder-worker /auction-worker /usr/local/bin/auction-worker
+
+EXPOSE 9090
+
+ENTRYPOINT ["/usr/local/bin/auction-worker"]

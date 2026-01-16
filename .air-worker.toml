@@ -1,0 +1,16 @@
+# Air configuration for local development (worker Service)
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o ./tmp/account-worker ./cmd/worker/main.go"
+bin = "./tmp/account-worker"
+full_bin = "./tmp/account-worker"
+include_ext = ["go", "mod", "sum", "yaml"]
+exclude_dir = ["tmp", "vendor"]
+
+[log]
+time = true
+
+[misc]
+clean_on_exit = true

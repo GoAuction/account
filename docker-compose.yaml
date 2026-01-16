@@ -43,6 +43,46 @@ services:
       - account-internal
       - rabbitmq-shared
 
+  account-worker-dev:
+    profiles: ["dev"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    env_file:
+      - .env
+    deploy:
+      replicas: 1
+    command: air -c .air-worker.toml
+    depends_on:
+      account-postgres:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - account-go-mod:/go/pkg/mod
+    restart: unless-stopped
+    networks:
+      - account-internal
+      - rabbitmq-shared
+
+  account-worker:
+    profiles: ["prod"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: worker
+    env_file:
+      - .env
+    deploy:
+      replicas: 1
+    depends_on:
+      account-postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - account-internal
+      - rabbitmq-shared
+
   account-postgres:
     image: postgres:latest
     environment:
