@@ -1,0 +1,16 @@
+# Air configuration for local development (api Service)
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o ./tmp/account-api ./cmd/api/main.go"
+bin = "./tmp/account-api"
+full_bin = "./tmp/account-api"
+include_ext = ["go", "mod", "sum", "yaml"]
+exclude_dir = ["tmp", "vendor"]
+
+[log]
+time = true
+
+[misc]
+clean_on_exit = true

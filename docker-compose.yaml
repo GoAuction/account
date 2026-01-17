@@ -1,6 +1,50 @@
 name: auction-account
 
 services:
+  account-api-dev:
+    profiles: ["dev"]
+    container_name: account-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    env_file:
+      - .env
+    command: air -c .air-api.toml -- cmd/api/main.go
+    depends_on:
+      account-postgres:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - account-go-mod:/go/pkg/mod
+    ports:
+      - "${HOST_PORT:-8084}:${PORT:-8080}"
+    restart: unless-stopped
+    networks:
+      - account-internal
+      - rabbitmq-shared
+      - traefik-shared
+
+  account-api:
+    profiles: ["prod"]
+    container_name: account-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
+    env_file:
+      - .env
+    depends_on:
+      account-postgres:
+        condition: service_healthy
+    ports:
+      - "${HOST_PORT:-8084}:${PORT:-8080}"
+    restart: unless-stopped
+    networks:
+      - account-internal
+      - rabbitmq-shared
+      - traefik-shared
+
   account-grpc-dev:
     profiles: ["dev"]
     container_name: account-grpc-dev
