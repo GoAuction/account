@@ -69,11 +69,11 @@ func (r GetProfileHandler) Handle(ctx context.Context, req *GetProfileRequest) (
 		Business:       profile.Business,
 		CreatedAt:      profile.CreatedAt,
 		UpdatedAt:      profile.UpdatedAt,
-		Rating:         0,
-		TotalSales:     0,
-		ActiveListings: 0,
-		ResponseRate:   0,
-		ResponseTime:   0,
+		Rating:         3.2,
+		TotalSales:     10,
+		ActiveListings: 5,
+		ResponseRate:   90,
+		ResponseTime:   2,
 		Photo:          profile.Photo,
 	}, nil
 }
