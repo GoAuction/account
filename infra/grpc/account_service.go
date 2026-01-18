@@ -45,6 +45,9 @@ func (s *AccountServiceServer) GetProfile(ctx context.Context, req *accountv1.Ge
 		Description:   profile.Description,
 		PhoneVerified: profile.PhoneVerified,
 		EmailVerified: profile.EmailVerified,
+		Business:      profile.Business,
+		Verified:       profile.Verified,
+		Photo:         profile.Photo,
 		CreatedAt:     timestamppb.New(profile.CreatedAt),
 		UpdatedAt:     timestamppb.New(profile.UpdatedAt),
 	}, nil

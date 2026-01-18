@@ -57,5 +57,5 @@ func setDefaults() {
 	viper.SetDefault("POSTGRES_HOST", "localhost")
 	viper.SetDefault("POSTGRES_PORT", "5432")
 	viper.SetDefault("SERVICE_NAME", "account")
-	viper.SetDefault("GRPC_PORT", "9090")
+	viper.SetDefault("GRPC_PORT", "9091")
 }

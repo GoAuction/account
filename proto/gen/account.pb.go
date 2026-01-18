@@ -77,8 +77,11 @@ type GetProfileResponse struct {
 	Description   string                 `protobuf:"bytes,7,opt,name=description,proto3" json:"description,omitempty"`
 	PhoneVerified bool                   `protobuf:"varint,8,opt,name=phone_verified,json=phoneVerified,proto3" json:"phone_verified,omitempty"`
 	EmailVerified bool                   `protobuf:"varint,9,opt,name=email_verified,json=emailVerified,proto3" json:"email_verified,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Business      bool                   `protobuf:"varint,10,opt,name=business,proto3" json:"business,omitempty"`
+	Verified      bool                   `protobuf:"varint,11,opt,name=verified,proto3" json:"verified,omitempty"`
+	Photo         string                 `protobuf:"bytes,12,opt,name=photo,proto3" json:"photo,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,14,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -176,6 +179,27 @@ func (x *GetProfileResponse) GetEmailVerified() bool {
 	return false
 }
 
+func (x *GetProfileResponse) GetBusiness() bool {
+	if x != nil {
+		return x.Business
+	}
+	return false
+}
+
+func (x *GetProfileResponse) GetVerified() bool {
+	if x != nil {
+		return x.Verified
+	}
+	return false
+}
+
+func (x *GetProfileResponse) GetPhoto() string {
+	if x != nil {
+		return x.Photo
+	}
+	return ""
+}
+
 func (x *GetProfileResponse) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
@@ -196,7 +220,7 @@ const file_account_proto_rawDesc = "" +
 	"\n" +
 	"\raccount.proto\x12\x12account.profile.v1\x1a\x1fgoogle/protobuf/timestamp.proto\",\n" +
 	"\x11GetProfileRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\"\xfb\x02\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"\xc9\x03\n" +
 	"\x12GetProfileResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x12\n" +
@@ -206,12 +230,15 @@ const file_account_proto_rawDesc = "" +
 	"\x04city\x18\x06 \x01(\tR\x04city\x12 \n" +
 	"\vdescription\x18\a \x01(\tR\vdescription\x12%\n" +
 	"\x0ephone_verified\x18\b \x01(\bR\rphoneVerified\x12%\n" +
-	"\x0eemail_verified\x18\t \x01(\bR\remailVerified\x129\n" +
+	"\x0eemail_verified\x18\t \x01(\bR\remailVerified\x12\x1a\n" +
+	"\bbusiness\x18\n" +
+	" \x01(\bR\bbusiness\x12\x1a\n" +
+	"\bverified\x18\v \x01(\bR\bverified\x12\x14\n" +
+	"\x05photo\x18\f \x01(\tR\x05photo\x129\n" +
 	"\n" +
-	"created_at\x18\n" +
-	" \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"created_at\x18\r \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt2m\n" +
+	"updated_at\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt2m\n" +
 	"\x0eAccountService\x12[\n" +
 	"\n" +
 	"GetProfile\x12%.account.profile.v1.GetProfileRequest\x1a&.account.profile.v1.GetProfileResponseB(Z&account/proto/gen/profile/v1;profilev1b\x06proto3"

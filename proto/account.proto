@@ -23,6 +23,9 @@ message GetProfileResponse {
   string description = 7;
   bool phone_verified = 8;
   bool email_verified = 9;
-  google.protobuf.Timestamp created_at = 10;
-  google.protobuf.Timestamp updated_at = 11;
+  bool business = 10;
+  bool verified = 11;
+  string photo = 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
 }
