@@ -128,10 +128,12 @@ func main() {
 
 	getProfileHandler := accountApp.NewGetProfileHandler(db, eventPublisher)
 	updateProfileHandler := accountApp.NewUpdateProfileHandler(db, eventPublisher)
+	changeProfilePhotoHandler := accountApp.NewChangeProfilePhotoHandler(db, eventPublisher)
 
 	privateRoutes := app.Group("/api/v1", securityHeadersHandler)
 	privateRoutes.Get("/user-profiles/:id", handle[accountApp.GetProfileRequest, accountApp.GetProfileResponse](getProfileHandler))
 	privateRoutes.Put("/user-profiles/:id", handle[accountApp.UpdateProfileRequest, accountApp.UpdateProfileResponse](updateProfileHandler))
+	privateRoutes.Post("/user-profiles/:id/change-profile-photo", handle[accountApp.ChangeProfilePhotoRequest, accountApp.ChangeProfilePhotoResponse](changeProfilePhotoHandler))
 
 	// Start server in a goroutine
 	go func() {
